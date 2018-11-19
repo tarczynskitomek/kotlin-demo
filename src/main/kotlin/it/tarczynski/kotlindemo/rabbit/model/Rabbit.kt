@@ -10,16 +10,16 @@ class Rabbit(
         val id: Long = 0,
 
         @Column(nullable = false)
-        val name: String,
+        val name: RabbitName,
 
         @Column(nullable = false)
-        val species: String,
+        val species: RabbitSpecies,
 
         @Column(nullable = false)
-        val age: Int) {
+        val age: RabbitAge) {
 
     fun toDto(): RabbitDto {
-        return RabbitDto(name, species, age)
+        return RabbitDto(name.value, species.value, age.value)
     }
 }
 

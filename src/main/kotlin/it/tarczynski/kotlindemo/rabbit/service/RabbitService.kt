@@ -1,14 +1,17 @@
 package it.tarczynski.kotlindemo.rabbit.service
 
+import it.tarczynski.kotlindemo.rabbit.model.RabbitAge
 import it.tarczynski.kotlindemo.rabbit.model.RabbitDto
+import it.tarczynski.kotlindemo.rabbit.model.RabbitName
+import it.tarczynski.kotlindemo.rabbit.model.RabbitSpecies
 
 interface RabbitService {
 
-    fun addRabbit(name: String, species: String, age: Int): RabbitDto
+    fun addRabbit(name: RabbitName, species: RabbitSpecies, age: RabbitAge): RabbitDto
 
-    fun findByName(name: String): RabbitDto?
+    fun findBy(name: RabbitName): RabbitDto?
 
-    fun findBySpecies(species: String): List<RabbitDto>
+    fun findBy(species: RabbitSpecies): List<RabbitDto>
 
-    fun findAllYoungerThen(age: Int): List<RabbitDto>
+    fun findAllYoungerThen(age: RabbitAge): List<RabbitDto>
 }
