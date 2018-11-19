@@ -1,16 +1,17 @@
 package it.tarczynski.kotlindemo.rabbit.repository
 
 import it.tarczynski.kotlindemo.rabbit.model.Rabbit
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.jpa.repository.Query
-import java.util.*
+import it.tarczynski.kotlindemo.rabbit.model.RabbitAge
+import it.tarczynski.kotlindemo.rabbit.model.RabbitName
+import it.tarczynski.kotlindemo.rabbit.model.RabbitSpecies
 
-interface RabbitRepository : JpaRepository<Rabbit, Long> {
+interface RabbitRepository {
 
-    fun findByName(name: String): Optional<Rabbit>
+    fun save(rabbit: Rabbit): Rabbit
 
-    fun findBySpecies(species: String): List<Rabbit>
+    fun findBy(name: RabbitName): Rabbit?
 
-    @Query("SELECT r FROM Rabbit r WHERE r.age < :age")
-    fun findAllYoungerThen(age: Int): List<Rabbit>
+    fun findBy(species: RabbitSpecies): List<Rabbit>
+
+    fun findAllYoungerThen(age: RabbitAge): List<Rabbit>
 }

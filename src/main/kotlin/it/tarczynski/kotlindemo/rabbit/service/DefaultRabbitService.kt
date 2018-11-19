@@ -11,30 +11,26 @@ import org.springframework.transaction.annotation.Transactional
 class DefaultRabbitService(private val rabbitRepository: RabbitRepository) : RabbitService {
 
     override fun addRabbit(name: RabbitName, species: RabbitSpecies, age: RabbitAge): RabbitDto {
-        if (rabbitRepository.findByName(name.value).isPresent) {
+        if (rabbitRepository.findBy(name) != null) {
             throw RabbitAlreadyExistsException()
         }
         return rabbitRepository
-                .save(Rabbit(0, name, species, age))
+                .save(Rabbit(name, species, age))
                 .toDto()
     }
 
     override fun findBy(name: RabbitName): RabbitDto? {
-        return rabbitRepository
-                .findByName(name.value)
-                .map { it.toDto() }
-                .orElse(null)
+        return rabbitRepository.findBy(name)?.toDto()
     }
 
     override fun findBy(species: RabbitSpecies): List<RabbitDto> {
-        return rabbitRepository
-                .findBySpecies(species.value)
+        return rabbitRepository.findBy(species)
                 .map { it.toDto() }
     }
 
     override fun findAllYoungerThen(age: RabbitAge): List<RabbitDto> {
         return rabbitRepository
-                .findAllYoungerThen(age.value)
+                .findAllYoungerThen(age)
                 .map { it.toDto() }
     }
 }
