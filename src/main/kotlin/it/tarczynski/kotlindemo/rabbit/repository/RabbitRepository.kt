@@ -9,6 +9,8 @@ interface RabbitRepository {
 
     fun save(rabbit: Rabbit): Rabbit
 
+    fun findAll(): List<Rabbit>
+
     fun findBy(name: RabbitName): Rabbit?
 
     fun findBy(species: RabbitSpecies): List<Rabbit>

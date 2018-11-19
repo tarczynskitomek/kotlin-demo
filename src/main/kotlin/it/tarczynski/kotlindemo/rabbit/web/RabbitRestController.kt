@@ -15,6 +15,11 @@ import java.net.URI
 @RequestMapping("/api/rabbits")
 class RabbitRestController(private val rabbitService: RabbitService) {
 
+    @GetMapping
+    fun getAllRabbits(): List<RabbitDto> {
+        return rabbitService.findAll()
+    }
+
     @GetMapping("/{name}")
     fun getRabbitByName(@PathVariable name: String): ResponseEntity<RabbitDto> {
         return rabbitService
@@ -30,6 +35,7 @@ class RabbitRestController(private val rabbitService: RabbitService) {
                     RabbitName(rabbit.name),
                     RabbitSpecies(rabbit.species),
                     RabbitAge(rabbit.age))
+
             ResponseEntity
                     .created(URI("/api/rabbits/${newRabbit.name}"))
                     .body(newRabbit)

@@ -19,6 +19,10 @@ class DefaultRabbitService(private val rabbitRepository: RabbitRepository) : Rab
                 .toDto()
     }
 
+    override fun findAll(): List<RabbitDto> {
+        return rabbitRepository.findAll().map { it.toDto() }
+    }
+
     override fun findBy(name: RabbitName): RabbitDto? {
         return rabbitRepository.findBy(name)?.toDto()
     }

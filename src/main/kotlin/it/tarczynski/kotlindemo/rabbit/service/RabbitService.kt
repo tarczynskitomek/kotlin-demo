@@ -14,4 +14,6 @@ interface RabbitService {
     fun findBy(species: RabbitSpecies): List<RabbitDto>
 
     fun findAllYoungerThen(age: RabbitAge): List<RabbitDto>
+
+    fun findAll(): List<RabbitDto>
 }

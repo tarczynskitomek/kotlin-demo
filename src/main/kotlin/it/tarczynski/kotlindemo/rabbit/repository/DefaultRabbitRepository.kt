@@ -8,22 +8,26 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class DefaultRabbitRepository
-internal constructor(private val rabbitRepository: InternalRabbitRepository) : RabbitRepository {
+internal constructor(private val internalRepository: InternalRabbitRepository) : RabbitRepository {
 
     override fun save(rabbit: Rabbit): Rabbit {
-        return rabbitRepository.save(rabbit.toData()).toModel()
+        return internalRepository.save(rabbit.toData()).toModel()
+    }
+
+    override fun findAll(): List<Rabbit> {
+        return internalRepository.findAll().map { it.toModel() }
     }
 
     override fun findBy(name: RabbitName): Rabbit? {
-        return rabbitRepository.findByName(name.value)?.toModel()
+        return internalRepository.findByName(name.value)?.toModel()
     }
 
     override fun findBy(species: RabbitSpecies): List<Rabbit> {
-        return rabbitRepository.findBySpecies(species.value).map { it.toModel() }
+        return internalRepository.findBySpecies(species.value).map { it.toModel() }
     }
 
     override fun findAllYoungerThen(age: RabbitAge): List<Rabbit> {
-        return rabbitRepository.findAllYoungerThen(age.value).map { it.toModel() }
+        return internalRepository.findAllYoungerThen(age.value).map { it.toModel() }
     }
 }
 

@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   db:
-    container_name: cs-db
+    container_name: kotlin-demo
     image: postgres
     restart: always
     environment:
